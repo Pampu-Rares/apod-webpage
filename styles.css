@@ -43,6 +43,10 @@ button:hover {
     transform: scale(1.1);
 }
 
+#pics-calendar {
+    position: relative;
+}
+
 #picture-of-the-day {
     border: 5px solid var(--gray-color);
     display: block;
@@ -50,6 +54,23 @@ button:hover {
     width: clamp(40px, 70vw, 500px);
     height: clamp(40px, 70vw, 500px);
     border-radius: 20px;
+    transform: all 0.3s ease;
+}
+
+#info {
+    width: clamp(40px, 70vw, 500px);
+    padding: clamp(5px, 1%, 10px);
+    opacity: 0;
+    text-align: center;
+    font-size: 1.3rem;
+
+    display: block;
+    margin: auto;
+    position: absolute;
+    top: 20%;
+    left: calc(50% - clamp(40px, 70vw, 500px) / 2 - 8px );
+
+    transition: opacity 0.3s ease;
 }
 
 #controls {
@@ -69,6 +90,48 @@ button:hover {
     padding: 10px
 }
 
+/* #region: fullScreenDialog */
+
+/* need to fucking fix this */
+#full-screen {
+    position: absolute;
+    top: 30px;
+    left: 0;
+    background-color: var(--dark-color);
+    color: var(--lightest-color);
+
+    display: grid;
+    grid-template-rows: 1fr 0.2fr 0.3fr;
+    grid-template-columns: 1fr;
+    height: 70%;
+    /* max-height: calc(100vh - 35px); */
+    max-width: 90vw;
+}
+
+#full-screen[open] {
+    display: grid;
+}
+
+#full-screen:not([open]) {
+    display: none;
+}
+
+#close-full-screen {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    border-radius: 0 0 0 20px;
+}
+
+#hd-image {
+    object-fit: contain;
+    display: block;
+    max-width: 100%;
+    max-height: 50%;
+}
+/* #endregion */
+
 #see-more-btn {
     animation: float-in-space 3.5s ease-in-out infinite;
 }
@@ -87,11 +150,14 @@ footer {
     justify-content: center;
 }
 
-footer p > a {
+footer p {
+    text-align: center;
+}
+
+a {
     color:aliceblue;
     border-radius: 10px;
     padding: 5px;
-    transition: background-color 0.3s ease;
 }
 
 footer p > a:hover {
