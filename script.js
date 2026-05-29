@@ -6,7 +6,7 @@ const dateParagrah = document.getElementById("date");
 const seeMoreBtn = document.getElementById("see-more-btn");
 const leftControl = document.getElementById("left");
 const rightControl = document.getElementById("right");
-const DEMO_KEY = '' || 'DEMO_KEY'; // add API key
+const DEMO_KEY = '8VgMEz2YrGuK5hJr0XUIRLaNbDLRFbZVVH0HOnsZ' || 'DEMO_KEY'; // add API key
 
 let apodPictures = [];
 let savedPictures = [];
@@ -25,12 +25,12 @@ async function getImages(date) {
 }
 
 async function updatePhoto(date) {
-    requestedPic = apodPictures.find(pic => pic.date === date);
     videoLink.style.visibility = 'hidden';
     info.style.visibility = 'visible';
     info.style.opacity = 1;
     infoParagraph.innerText = 'Loading...';
     picOfTheDay.style.filter = 'blur(10px)';
+    requestedPic = apodPictures.find(pic => pic.date === date);
     if(!requestedPic) {
         requestedPic = await getImages(date);
         apodPictures.push(requestedPic);
@@ -85,7 +85,13 @@ const closeDialog = document.getElementById("close-full-screen");
 picOfTheDay.addEventListener("click", () => {
     if(picOfTheDay.src && !picOfTheDay.src.includes('/media/transparent_img.png'))
     {
-        fullImage.src = requestedPic.hdurl;
+        fullImage.style.filter = 'blur(10px)';
+        const loadImage = new Image();
+        loadImage.onload = () => {
+            fullImage.src = requestedPic.hdurl;
+            fullImage.style.filter = 'blur(0px)';
+        };
+        loadImage.src = requestedPic.hdurl;
         imageTitle.innerText = requestedPic.title;
         imageExplanation.innerText = requestedPic.explanation;
         fullScreenDialog.show();
@@ -94,6 +100,26 @@ picOfTheDay.addEventListener("click", () => {
 
 closeDialog.addEventListener("click", () => {
     fullScreenDialog.close();
+});
+
+
+const seeSavedBtn = document.getElementById("see-saved");
+const savedImgsDialog = document.getElementById("saved-imgs-container"); 
+const savedImgsDiv = document.getElementById("saved-imgs");
+const closeSavedImgsDialog = document.getElementById("close-saved-imgs");
+
+seeSavedBtn.addEventListener("click", () => {
+    savedImgsDiv.innerHTML = '';
+    savedPictures.forEach(pic => {
+        savedImgsDiv.innerHTML += `
+            <img src="${pic.url}">
+        `;
+    });
+    savedImgsDialog.show();
+});
+
+closeSavedImgsDialog.addEventListener("click", () => {
+    savedImgsDialog.close();
 });
 
 // add save photo button for localStorage

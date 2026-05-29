@@ -21,10 +21,6 @@ h1 {
     font-size: 2rem;
 }
 
-#initial-pic {
-    max-width: clamp(200px, 60%, 600px);
-}
-
 button {
     border-radius: 20px;
     padding: 15px;
@@ -43,6 +39,18 @@ button:hover {
     transform: scale(1.1);
 }
 
+#see-saved, #save-pic {
+    width: clamp(5px, 20%, 60px);
+    margin-left: 10px;
+    display: flex;
+    flex-direction: row;
+}
+
+.save-logo {
+    display: block;
+    width: 100%;
+}
+
 #pics-calendar {
     position: relative;
 }
@@ -51,8 +59,8 @@ button:hover {
     border: 5px solid var(--gray-color);
     display: block;
     margin: auto;
-    width: clamp(40px, 70vw, 500px);
-    height: clamp(40px, 70vw, 500px);
+    width: clamp(40px, 70vw, 400px);
+    height: clamp(40px, 70vw, 400px);
     border-radius: 20px;
     transform: all 0.3s ease;
 }
@@ -76,9 +84,10 @@ button:hover {
 #controls {
     display: flex;
     flex-direction: row;
-    width: clamp(40px, 25vw, 300px);
+    width: clamp(70%, 40vw, 300px);
     gap: 20px;
     justify-content: center;
+    align-items: center;
     margin: 20px auto;
 }
 
@@ -92,7 +101,6 @@ button:hover {
 
 /* #region: fullScreenDialog */
 
-/* need to fucking fix this */
 #full-screen {
     position: absolute;
     top: 30px;
@@ -101,10 +109,12 @@ button:hover {
     color: var(--lightest-color);
 
     display: grid;
-    grid-template-rows: 1fr 0.2fr 0.3fr;
+    grid-template-rows: 1fr auto auto;
     grid-template-columns: 1fr;
-    height: 70%;
-    /* max-height: calc(100vh - 35px); */
+    align-items: center;
+    gap: 5px;
+
+    min-height: 70%;
     max-width: 90vw;
 }
 
@@ -114,6 +124,12 @@ button:hover {
 
 #full-screen:not([open]) {
     display: none;
+}
+
+#save-pic {
+    position: absolute;
+    left: 0;
+    top: 0;
 }
 
 #close-full-screen {
@@ -128,8 +144,20 @@ button:hover {
     object-fit: contain;
     display: block;
     max-width: 100%;
-    max-height: 50%;
+    max-height: 60vw;
+    display: block;
+    margin: auto;
+    transition: blur 0.3s ease;
 }
+
+#img-title {
+    text-align: center;
+}
+
+#explanation {
+    font-size: 0.9rem;
+}
+
 /* #endregion */
 
 #see-more-btn {
@@ -152,6 +180,8 @@ footer {
 
 footer p {
     text-align: center;
+    border-radius: 5px;
+    background-color: rgba(0, 0, 0, 0.4);
 }
 
 a {
@@ -174,5 +204,15 @@ footer p > a:hover {
     }
     100% {
         transform: translateY(-5px);
+    }
+}
+
+@media (min-width: 650px) {
+    #full-screen {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr auto;
+    }
+    #hd-image {
+        grid-row: 1/-1;
     }
 }
